@@ -1,0 +1,26 @@
+upstream gs {
+    server                   storage.googleapis.com;
+    keepalive                100;
+}
+
+server {
+    listen 80 default_server;
+    server_name _;
+
+    # Limit Request Methods to GET|HEAD|PURGE
+    if ( $request_method !~ "GET|HEAD|PURGE" ) {
+        return 405;
+    }
+	
+    # Disable IPv6 lookups.
+    resolver 127.0.0.1 ipv6=off;
+    
+    location / {
+        proxy_set_header    Host storage.googleapis.com;
+        
+        proxy_http_version     1.1;
+        proxy_pass_header Date;
+        proxy_pass_header Server;
+        proxy_pass             http://gs/${BUCKET}$uri;
+    }
+}
