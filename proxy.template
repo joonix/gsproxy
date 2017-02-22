@@ -14,7 +14,11 @@ server {
 	
     # Disable IPv6 lookups.
     resolver ${NAMESERVER} ipv6=off;
-    
+
+    # Dummy health check.
+    location = / {
+        return 200 'OK';
+    }
     location / {
         proxy_set_header    Host storage.googleapis.com;
         
