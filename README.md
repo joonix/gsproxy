@@ -7,5 +7,6 @@ The docker image is publicly available as `joonix/gsproxy`.
 
 ## Environment variables
 
-**BUCKET**: Set this to the bucket that we should proxy to.
+**BUCKET**: Set this to the bucket that we should proxy to.  
+**NAMESERVER**: Use this nameserver when resolving bucket IP, defaults to 8.8.8.8.
 
